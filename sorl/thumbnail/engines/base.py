@@ -81,7 +81,7 @@ class EngineBase(object):
 
         return image
 
-    def crop(self, image, options):
+    def crop(self, image, geometry, options):
         """
         Wrapper for ``_crop``
         """
