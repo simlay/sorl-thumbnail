@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from django.conf import settings
 
 # When True ThumbnailNode.render can raise errors
@@ -35,6 +36,10 @@ THUMBNAIL_REDIS_PASSWORD = ''
 THUMBNAIL_REDIS_HOST = 'localhost'
 THUMBNAIL_REDIS_PORT = 6379
 THUMBNAIL_REDIS_UNIX_SOCKET_PATH = None
+
+# DBM settings
+THUMBNAIL_DBM_FILE = "thumbnail_kvstore"
+THUMBNAIL_DBM_MODE = 0o644
 
 # Cache timeout for ``cached_db`` store. You should probably keep this at
 # maximum or ``0`` if your caching backend can handle that as infinate.

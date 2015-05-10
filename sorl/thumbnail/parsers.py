@@ -51,9 +51,6 @@ def parse_crop(crop, xy_image):
     image but it works out anyway
     """
 
-    def syntax_error():
-        raise ThumbnailParseError('Unrecognized crop option: %s' % crop)
-
     x_alias_percent = {
         'left': '0%',
         'center': '50%',
@@ -64,8 +61,9 @@ def parse_crop(crop, xy_image):
         'center': '50%',
         'bottom': '100%',
     }
-    xywh_crop = crop.split(' ')
-    if len(xywh_crop) == 1:
+    xy_crop = crop.split(' ')
+
+    if len(xy_crop) == 1:
         if crop in x_alias_percent:
             x_crop = x_alias_percent[crop]
             y_crop = '50%'
@@ -115,12 +113,12 @@ def parse_crop(crop, xy_image):
         h_crop = y_alias_percent.get(h_crop, h_crop)
 
     else:
-        syntax_error()
+        raise ThumbnailParseError('Unrecognized crop option: %s' % crop)
 
     def get_offset(crop, epsilon):
         m = bgpos_pat.match(crop)
         if not m:
-            syntax_error()
+            raise ThumbnailParseError('Unrecognized crop option: %s' % crop)
         value = int(m.group('value'))  # we only take ints in the regexp
         unit = m.group('unit')
         if unit == '%':
